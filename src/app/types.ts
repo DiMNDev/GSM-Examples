@@ -18,3 +18,18 @@ export interface NavLink {
 }
 
 export type NavLinks = NavLink[];
+
+export interface FormInputData {
+  username: string;
+  password: string;
+  email?: string;
+  confirm?: string;
+}
+
+export interface ProductData {
+  title: string;
+  image: string;
+  description: string;
+  price: number;
+  featured: boolean;
+}
