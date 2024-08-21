@@ -1,11 +1,13 @@
 "use client";
 import React, { FormEvent, useState } from "react";
 import { FormInputData } from "../types";
+import { useAppContext } from "../context/ContextProvider";
 
 type Props = {};
 
 const LoginForm = (props: Props) => {
-  const [showSignUp, setShowSignUp] = useState<boolean>(false);
+  const { handleSignIn, handleSignUp, userInfo } = useAppContext();
+  const [showSignUp, setShowSignUp] = useState<boolean>(userInfo.loggedIn);
   const [statusMessage, setStatusMessage] = useState<string>("");
 
   const handleFormSubmission = async (e: FormEvent<HTMLFormElement>) => {
@@ -21,7 +23,7 @@ const LoginForm = (props: Props) => {
 
     if (showSignUp) {
       setStatusMessage("Creating your account...");
-      const response = await signUp(data);
+      const response = await handleSignUp(data);
       if (response.msg) {
         setTimeout(() => {
           setStatusMessage(response.msg);
@@ -37,7 +39,7 @@ const LoginForm = (props: Props) => {
       }
     } else {
       setStatusMessage("Signing into your account...");
-      const response = await signIn(data);
+      const response = await handleSignIn(data);
       if (response.msg) {
         setTimeout(() => {
           setStatusMessage(response.msg);
@@ -55,32 +57,6 @@ const LoginForm = (props: Props) => {
     }, 3000);
   };
 
-  const signUp = async (data: FormInputData) => {
-    const endpoint = "/api/sign-up";
-    const JSONdata = JSON.stringify(data);
-    const options = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSONdata,
-    };
-    const response = await fetch(endpoint, options);
-    return response.json();
-  };
-  const signIn = async (data: FormInputData) => {
-    const endpoint = "/api/sign-in";
-    const JSONdata = JSON.stringify(data);
-    const options = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSONdata,
-    };
-    const response = await fetch(endpoint, options);
-    return response.json();
-  };
   return (
     <form
       key="loginComponent"

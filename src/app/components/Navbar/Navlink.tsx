@@ -1,4 +1,5 @@
 "use client";
+import { useAppContext } from "@/app/context/ContextProvider";
 import { linkNames, NavLink } from "@/app/types";
 import React, { useEffect, useState } from "react";
 
@@ -8,7 +9,9 @@ type Props = {
 };
 
 const Navlink = ({ linkData, loggedIn }: Props) => {
-  const [cartCount, setCartCount] = useState<number>(0);
+  const { handleLogOut, cartItems } = useAppContext();
+  const [cartCount, setCartCount] = useState<number>(cartItems.length);
+
   useEffect(() => {
     if (linkData.linkName === linkNames.cart) {
       const cartString = localStorage.getItem("cart");
@@ -20,7 +23,7 @@ const Navlink = ({ linkData, loggedIn }: Props) => {
   const handleLogout = () => {
     if (loggedIn && linkData.linkName === linkNames.login) {
       localStorage.removeItem("user");
-      console.log("logout!");
+      handleLogOut();
     }
     console.log("Do nothing");
   };

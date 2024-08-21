@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/Navbar/Navbar";
 import { NavLinks, linkNames, linkRefs } from "./types";
+import { ContextProvider } from "./context/ContextProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -36,8 +37,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Navbar NavLinkData={NavLinkData} />
-        {children}
+        <ContextProvider>
+          <Navbar NavLinkData={NavLinkData} />
+          {children}
+        </ContextProvider>
       </body>
     </html>
   );

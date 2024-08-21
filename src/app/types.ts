@@ -1,3 +1,15 @@
+export interface AppContextType {
+  Products: Products;
+  FeaturedProducts: Products;
+  userInfo: UserInfo;
+  cartItems: CartItems;
+  addToCart: (newItem: ProductData, quantity: number) => void;
+  removeFromCart: (removeItem: ProductData) => void;
+  handleSignIn: (data: FormInputData) => Promise<any>;
+  handleSignUp: (data: FormInputData) => Promise<any>;
+  handleLogOut: () => void;
+}
+
 export enum linkRefs {
   home = "/home",
   products = "/products",
@@ -33,3 +45,17 @@ export interface ProductData {
   price: number;
   featured: boolean;
 }
+
+export type Products = ProductData[];
+
+export interface UserInfo {
+  username: string;
+  loggedIn: boolean;
+}
+
+export interface CartItem {
+  product: ProductData;
+  quantity: number;
+}
+
+export type CartItems = CartItem[];
