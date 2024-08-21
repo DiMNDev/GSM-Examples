@@ -15,6 +15,8 @@ Some of the benefits of using Redux include:
 
 ### Setting up Redux
 
+[README for Learn-Redux Repository Link](https://github.com/DiMNDev/reduxCounter/tree/modernRedux)
+
 [NextJS Redux Documentation](https://redux.js.org/usage/nextjs)
 
 1. Install dependencies
